@@ -102,10 +102,10 @@ theorem isComplement_singleton_univ {g : G} : IsComplement ({g} : Set G) univ :=
 
 @[to_additive]
 theorem isComplement_singleton_left {g : G} : IsComplement {g} S ↔ S = univ := by
-  refine
-    ⟨fun h => top_le_iff.mp fun x _ => ?_, fun h => (congr_arg _ h).mpr isComplement_singleton_univ⟩
-  obtain ⟨⟨⟨z, rfl : z = g⟩, y, _⟩, hy⟩ := h.2 (g * x)
-  rwa [← mul_left_cancel hy]
+  refine ⟨fun ⟨_, h_s⟩ => top_le_iff.mp ?_, fun h => h.symm ▸ isComplement_singleton_univ⟩
+  intro x _
+  obtain ⟨⟨⟨_, rfl⟩, ⟨s, hs⟩⟩, hy⟩ := h_s (g * x)
+  exact mul_left_cancel hy ▸ hs
 
 @[to_additive]
 theorem isComplement_singleton_right {g : G} : IsComplement S {g} ↔ S = univ := by
